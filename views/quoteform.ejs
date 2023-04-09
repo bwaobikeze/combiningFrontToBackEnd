@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+  <style>
+  h1 {
+  padding:40px;
+    text-align: center;
+  }
+  #userinfo{
+	width: 300px;
+	height: 30px;
+  }
+  #pswd{
+	width: 300px;
+	height: 30px;
+  }
+  .login{
+	position: absolute;
+	top: 35%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+  </style>
+  <h1>Fuel Quote Form</h1>
+  <form action="/quoteform/<%= locals.userId %>" method="POST">
+  <body style="background-color:beige;">
+    <form method="post">
+  <div class="login">
+  <strong><label for="gallonsrequested"<b>Gallons Requested: <font color="red">Required</font> </b></label></strong><br> 
+  <input type="number" placeholder="Enter Gallons Requested" name="gallons"value="<%= locals.gallons %>" id="userinfo" maxlength="50" required > 
+  <br><br>
+  <strong><label for="City"<b>State: </b></label></strong><br>
+  <select id="state" name="state"value="<%= locals.state%>">
+    <option value="">Select a state</option>
+    <option value="AL">Alabama</option>
+    <option value="AK">Alaska</option>
+    <option value="AZ">Arizona</option>
+    <option value="AR">Arkansas</option>
+    <option value="CA">California</option>
+    <option value="CO">Colorado</option>
+    <option value="CT">Connecticut</option>
+    <option value="DE">Delaware</option>
+    <option value="DC">District of Columbia</option>
+    <option value="FL">Florida</option>
+    <option value="GA">Georgia</option>
+    <option value="HI">Hawaii</option>
+    <option value="ID">Idaho</option>
+    <option value="IL">Illinois</option>
+    <option value="IN">Indiana</option>
+    <option value="IA">Iowa</option>
+    <option value="KS">Kansas</option>
+    <option value="KY">Kentucky</option>
+    <option value="LA">Louisiana</option>
+    <option value="ME">Maine</option>
+    <option value="MD">Maryland</option>
+    <option value="MA">Massachusetts</option>
+    <option value="MI">Michigan</option>
+    <option value="MN">Minnesota</option>
+    <option value="MS">Mississippi</option>
+    <option value="MO">Missouri</option>
+    <option value="MT">Montana</option>
+    <option value="NE">Nebraska</option>
+    <option value="NV">Nevada</option>
+    <option value="NH">New Hampshire</option>
+    <option value="NJ">New Jersey</option>
+    <option value="NM">New Mexico</option>
+    <option value="NY">New York</option>
+    <option value="NC">North Carolina</option>
+    <option value="ND">North Dakota</option>
+    <option value="OH">Ohio</option>
+    <option value="OK">Oklahoma</option>
+    <option value="OR">Oregon</option>
+    <option value="PA">Pennsylvania</option>
+    <option value="RI">Rhode Island</option>
+    <option value="SC">South Carolina</option>
+    <option value="SD">South Dakota</option>
+    <option value="TN">Tennessee</option>
+    <option value="TX">Texas</option>
+    <option value="UT">Utah</option>
+    <option value="VT">Vermont</option>
+    <option value="VA">Virginia</option>
+    <option value="WA">Washington</option>
+    <option value="WV">West Virginia</option>
+    <option value="WI">Wisconsin</option>
+    <option value="WY">Wyoming</option>
+  </select>  
+  <br><br>
+  <strong><label for="deliveryaddress"<b>Delivery Address: </b></label></strong><br>
+  <input type="text" name="add1"value="<%= locals.add1%>" id="userinfo" maxlength="100" disabled required>
+  <br><br>
+  <strong><label for="deliverydate"<b>Delivery Date: </b></label></strong><br>
+  <input type="date" name="date" value="<%= locals.date%>">
+  <br><br>
+  <strong><label for="suggestprice"<b>Suggested Price: <font color="red"></font></b></label></strong><br>
+  <input type="number" name="suggestprice" value="<%=locals.suggestprice%>" id="userinfo" maxlength="100" disabled required>
+  <br><br>
+  <strong><label for="totaldue"<b>Total Amount Due: </b></label></strong><br>
+  <input type="number" name="totaldue" value="<%=locals.totaldue%>" id="userinfo" maxlength="100" disabled required>
+  <br><br>
+  <button type="submit">OK</button>
+  </div>
+</form>
+<div>
+<br><br>
+<button onclick="location.href='/quotehist'"+>Check User Quote History</button>
+<br><br>
+</form>
+</div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+  <style>
+  h1 {
+  padding:40px;
+    text-align: center;
+  }
+  #userinfo{
+	width: 300px;
+	height: 30px;
+  }
+  .login{
+	position: absolute;
+	top: 35%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+  </style>
+  <h1>Client Profile Management</h1>
+  <form action="/profmgmt/<%= locals.userId %>" method="POST">
+  <body style="background-color:beige;">
+  <div class="login">
+  <strong><label for="fullname"<b>Full Name: </b></label></strong><br>
+  <input type="text" placeholder="Enter Username" name="fullname" id="userinfo" maxlength="50" required>
+  <br><br>
+  <strong><label for="address1"<b>Address 1: </b></label></strong><br>
+  <input type="text" placeholder="Enter Address" name="address1" id="userinfo" maxlength="100" required>
+  <br><br>
+  <strong><label for="address2"<b>Address 2: </b></label></strong><br>
+  <input type="text" placeholder="Enter Second Address (Optional)" name="address2" id="userinfo" maxlength="100">
+  <br><br>
+  <strong><label for="city"<b>City: </b></label></strong><br>
+  <input type="text" placeholder="Enter City" name="city" id="userinfo" maxlength="100" required>
+  <br><br>
+  <strong><label for="state"<b>State: </b></label></strong><br>
+  <select name="states" id="states">
+	<option value="AL">AL</option>
+	<option value="AK">AK</option>
+	<option value="AR">AR</option>
+	<option value="AZ">AZ</option>
+	<option value="CA">CA</option>
+	<option value="CO">CO</option>
+	<option value="CT">CT</option>
+	<option value="DC">DC</option>
+	<option value="DE">DE</option>
+	<option value="FL">FL</option>
+	<option value="GA">GA</option>
+	<option value="HI">HI</option>
+	<option value="IA">IA</option>
+	<option value="ID">ID</option>
+	<option value="IL">IL</option>
+	<option value="IN">IN</option>
+	<option value="KS">KS</option>
+	<option value="KY">KY</option>
+	<option value="LA">LA</option>
+	<option value="MA">MA</option>
+	<option value="MD">MD</option>
+	<option value="ME">ME</option>
+	<option value="MI">MI</option>
+	<option value="MN">MN</option>
+	<option value="MO">MO</option>
+	<option value="MS">MS</option>
+	<option value="MT">MT</option>
+	<option value="NC">NC</option>
+	<option value="NE">NE</option>
+	<option value="NH">NH</option>
+	<option value="NJ">NJ</option>
+	<option value="NM">NM</option>
+	<option value="NV">NV</option>
+	<option value="NY">NY</option>
+	<option value="ND">ND</option>
+	<option value="OH">OH</option>
+	<option value="OK">OK</option>
+	<option value="OR">OR</option>
+	<option value="PA">PA</option>
+	<option value="RI">RI</option>
+	<option value="SC">SC</option>
+	<option value="SD">SD</option>
+	<option value="TN">TN</option>
+	<option value="TX">TX</option>
+	<option value="UT">UT</option>
+	<option value="VT">VT</option>
+	<option value="VA">VA</option>
+	<option value="WA">WA</option>
+	<option value="WI">WI</option>
+	<option value="WV">WV</option>
+	<option value="WY">WY</option>
+	</select>
+  <br><br>
+  <strong><label for="zip"<b>Zipcode: </b></label></strong><br>
+  <input type="number" placeholder="Enter Zipcode" name="zip" id="userinfo" maxlength="9" required>
+  <br><br>
+  <button type="submit">Save</button>
+</form>
+  </div>
+  </body>
+</html>
