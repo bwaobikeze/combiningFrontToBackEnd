@@ -2,7 +2,7 @@ const express=require("express")
 const app=express()
 const path=require("path")
 const coll=require("./database")
-const profs=require("./profiles")
+//const profs=require("./profiles")
 const bcrypt = require('bcrypt')
 const session = require('express-session');
 const fuelQuoteModule = require("./fuelQuoteModule");
@@ -35,26 +35,26 @@ app.get("/login",(req,res)=>{
 })
 
 app.get("/profmgmt/:id",(req,res)=>{
-    res.render("profmgmt")
+    res.render("profmgmt", { userId: req.params.id })
 })
 
 app.get("/quoteform/:id",async(req,res)=>{
     //console.log(req.params.id)
-    const user = profs.findById(req.params.id)
+    const user = coll.findById(req.params.id)
     if (!user) {
         return res.status(404).send('User not found');
         res.render("quoteform")
     } else {
         console.log("User Found");
-        const User = await profs.findOne({ _id: req.params.id });
+        const User = await coll.findOne({ _id: req.params.id });
         //console.log(User);
         res.render("quoteform", { add1: User.address1 ,userId: req.params.id});
     }
     //console.log(user.username);
 })
 
-app.get("/:id/quotehist",(req,res)=>{
-    res.render("quotehist")
+app.get("quotehist/:id",(req,res)=>{
+    res.render("quotehist",{ userId: req.params.id })
     //console.log(req.params.id);
 })
 
@@ -91,7 +91,7 @@ app.post("/login",async (req,res)=>{
     }
 })
 app.post("/quoteform/:id", async (req, res) => {
-    foundUser = await profs.findById(req.params.id);
+    foundUser = await coll.findById(req.params.id);
     //console.log(foundUser);
     let gallonVal = req.body.gallons;
     let getDate = new Date(req.body.date);
@@ -99,28 +99,31 @@ app.post("/quoteform/:id", async (req, res) => {
      let userAdress = foundUser.address1;
  let newActioin = new fuelQuoteModule();
     let testQuote = newActioin.UCLocationOC(cityChossin, gallonVal, getDate, userAdress)
-    console.log(testQuote);
+    //console.log(testQuote);
     newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
     console.log(testQuote);
-    foundUser.QuoteHist.push(testQuote);
+    const filter = { _id: req.params.id };
+    const update = { $push: { QuoteHist: testQuote } };
+    const options = { new: true };
+    foundUser=await coll.findOneAndUpdate(filter, update, options);
      res.render("quoteform", { "add1": testQuote.UsersDelveryAddress, "totaldue": testQuote.totalQuote, "suggestprice": testQuote.sugestedPrice ,userId: req.params.id});
-    //newActioin.UCClienQuoteManagement(testQuote, User);
 
 })
 
-app.post("/profmgmt", async (req, res) => {
-    userinfo={
-        fullname: req.body.fullname,
-        address1: req.body.address1,
-        address2: req.body.address2,
-        city: req.body.city,
-        states: req.body.states,
-        zip: req.body.zip
-    }
-    await profs.insertMany([userinfo]) 
-    const check = await profs.findOne({ fullname:'Brian I Waobikeze' })
-    req.session.userID = check._id;
-    res.render("index",{ userId: req.session.userID })
+app.post("/profmgmt/:id", async (req, res) => {
+  const {
+        fullname,
+        address1,
+        address2,
+        city,
+        states,
+        zip
+    } = req.body;
+    const filter = { _id: req.params.id }
+    const update = { fullname, address1, address2, city, states, zip }
+    const options = { new: true };
+    const updatedUser = await coll.findOneAndUpdate(filter, update, options);
+    console.log(filter);
+    res.render("index",{ userId: req.params.id })
 })
-
 app.listen(3000)
