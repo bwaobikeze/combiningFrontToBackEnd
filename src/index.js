@@ -53,9 +53,10 @@ app.get("/quoteform/:id",async(req,res)=>{
     //console.log(user.username);
 })
 
-app.get("quotehist/:id",(req,res)=>{
-    res.render("quotehist",{ userId: req.params.id })
-    //console.log(req.params.id);
+app.get("/quotehist/:id",async (req, res) => {
+    const check = await coll.findById(req.params.id)
+    res.render("quotehist",{ userId: req.params.id,QuoteHist:check.QuoteHist})
+    console.log(req.params.id);
 })
 
 app.post("/register",async (req,res)=>{
@@ -81,7 +82,7 @@ app.post("/login",async (req,res)=>{
         const check = await coll.findOne({username:req.body.username})
         if (await bcrypt.compare(req.body.password, check.password)) {
             req.session.userID = check._id;
-            res.render("index",{ userId: req.session.userID })
+            res.render("index",{ userId: req.session.userID,user:check})
         }
         else{
             res.send("wrong password")
@@ -124,6 +125,7 @@ app.post("/profmgmt/:id", async (req, res) => {
     const options = { new: true };
     const updatedUser = await coll.findOneAndUpdate(filter, update, options);
     console.log(filter);
-    res.render("index",{ userId: req.params.id })
+    const check = await coll.findOne({_id:req.params.id})
+    res.render("index",{ userId: req.params.id, user:check })
 })
 app.listen(3000)

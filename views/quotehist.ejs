@@ -32,7 +32,6 @@
 <table class="tg">
 <thead>
   <tr>
-    <th class="tg-0pky"></th>
     <th class="tg-0pky">Gallons Requested</th>
     <th class="tg-0pky">Delivery Address</th>
     <th class="tg-0pky">Delivery Date</th>
@@ -41,34 +40,19 @@
   </tr>
 </thead>
 <tbody>
+  <% for(let i=0; i<QuoteHist.length;i++) {%>
   <tr>
-    <td class="tg-0pky">Client</td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
+    <td class="tg-0pky"><%= QuoteHist[i].gallon %></td>
+    <td class="tg-0pky"><%= QuoteHist[i].UsersDelveryAddress%></td>
+    <td class="tg-0pky"><%= QuoteHist[i].DelivaryDate%></td>
+    <td class="tg-0pky"><%= QuoteHist[i].sugestedPrice %></td>
+    <td class="tg-0pky"><%= QuoteHist[i].totalQuote%></td>
   </tr>
-  <tr>
-    <td class="tg-0pky">Client</td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">Client</td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-    <td class="tg-0pky"></td>
-  </tr>
+  <% } %>
 </tbody>
 </table>
   </div>
 </form>
   </body>
-  <button onclick="location.href='/quoteform'"+>Check User Quote Form</button>
+  <button onclick="location.href='/quoteform/<%= locals.userId %>'"+>Check User Quote Form</button>
 </html>

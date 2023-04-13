@@ -14,8 +14,15 @@ h3 {
     
 <h3>Main Page</h3>
 <div class="stuff">
-<a href="/profmgmt/<%= locals.userId %>">Profile Management</html>
-<a href="/quoteform/<%=locals.userId %>">Quote Form</html>
-<a href="/quotehist/<%= locals.userId %>">Quote History</html>
+    <% if(user.fullname === undefined && user.address1 === undefined &&  user.address2 === undefined &&  user.address1 === undefined && user.states === undefined && user.zip === undefined) { %>
+        <script>
+            alert('Please fill out Profile information before clicking')
+        </script>
+        <a href="/profmgmt/<%= locals.userId %>">Profile Management</html>
+    <%}else{%>
+        <a href="/profmgmt/<%= locals.userId %>">Profile Management</html>
+        <a href="/quoteform/<%=locals.userId %>">Quote Form</html>
+        <a href="/quotehist/<%= locals.userId %>">Quote History</html>
+        <%}%>
 </body>
 </div>
