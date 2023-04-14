@@ -54,5 +54,13 @@
   </div>
 </form>
   </body>
-  <button onclick="location.href='/quoteform/<%= locals.userId %>'"+>Check User Quote Form</button>
+  <div>
+  <button onclick="location.href='/quoteform'"+>Check User Quote Form</button>
+  <form action="/logout" method="POST">
+    <button type="submit">Log Out</button>
+  </form>
+</div>
+<form action="/index" method="POST">
+	<button type="submit">Main Page</button>
+  </form>
 </html>

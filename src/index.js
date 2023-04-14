@@ -33,11 +33,11 @@ app.get("/login",(req,res)=>{
     res.render("login")
 })
 
-app.get("/profmgmt/:id",(req,res)=>{
-    res.render("profmgmt", { userId: req.params.id })
+app.get("/profmgmt",(req,res)=>{
+    res.render("profmgmt")
 })
 
-app.get("/quoteform/:id",async(req,res)=>{
+app.get("/quoteform",async(req,res)=>{
     const user = coll.findById(req.params.id)
     if (!user) {
         return res.status(404).send('User not found');
@@ -45,16 +45,21 @@ app.get("/quoteform/:id",async(req,res)=>{
     } else {
         console.log("User Found");
         console.log("In /quoteform Get request");
-        const User = await coll.findOne({ _id: req.params.id });
-        res.render("quoteform", { add1: User.address1 ,userId: req.params.id});
+        const User = await coll.findOne({ _id: req.session.userID });
+        res.render("quoteform", { add1: User.address1});
     }
 })
 
-app.get("/quotehist/:id",async (req, res) => {
-    const check = await coll.findById(req.params.id)
-    res.render("quotehist",{ userId: req.params.id,QuoteHist:check.QuoteHist})
-    console.log(req.params.id);
+app.get("/quotehist",async (req, res) => {
+    const check = await coll.findById(req.session.userID)
+    res.render("quotehist",{QuoteHist:check.QuoteHist})
+    console.log(req.session.userID);
 })
+
+app.post("/index", async (req, res) =>{
+    const check = await coll.findById(req.session.userID)
+        res.render('index',{user:check});
+  });
 
 app.post("/register",async (req,res)=>{
     const encryptedpass = await bcrypt.hash(req.body.password, 10)
@@ -79,7 +84,7 @@ app.post("/login",async (req,res)=>{
         const check = await coll.findOne({username:req.body.username})
         if (await bcrypt.compare(req.body.password, check.password)) {
             req.session.userID = check._id;
-            res.render("index",{ userId: req.session.userID,user:check})
+            res.render("index",{user:check})
         }
         else{
             res.send("wrong password")
@@ -88,8 +93,17 @@ app.post("/login",async (req,res)=>{
         res.send("wrong details")
     }
 })
-app.post("/Partialquoteform/:id", async (req, res) => { 
-    foundUser = await coll.findById(req.params.id);
+app.post('/logout', function(req, res) {
+    req.session.destroy(function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.redirect('/login');
+      }
+    });
+  });
+app.post("/Partialquoteform", async (req, res) => { 
+    foundUser = await coll.findById(req.session.userID);
     let gallonVal = req.body.gallons;
     let getDate = new Date(req.body.date);
     let cityChossin = req.body.state;
@@ -97,11 +111,11 @@ app.post("/Partialquoteform/:id", async (req, res) => {
      let newActioin = new fuelQuoteModule();
     let testQuote = newActioin.UCLocationOC(cityChossin, gallonVal, getDate, userAdress)
     newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
-    res.render("quoteform", {"gallons":testQuote.gallon,"state":testQuote.citySelected ,"add1": testQuote.UsersDelveryAddress,"date":req.body.date, "totaldue": testQuote.totalQuote, "suggestprice": testQuote.sugestedPrice ,userId: req.params.id});
+    res.render("quoteform", {"gallons":testQuote.gallon,"state":req.body.state ,"add1": testQuote.UsersDelveryAddress,"date":req.body.date, "totaldue": testQuote.totalQuote, "suggestprice": testQuote.sugestedPrice});
 
 })
-app.post("/quoteform/:id", async (req, res) => {
-    foundUser = await coll.findById(req.params.id);
+app.post("/quoteform", async (req, res) => {
+    foundUser = await coll.findById(req.session.userID);
     //console.log(foundUser);
     let gallonVal = req.body.gallons;
     let getDate = new Date(req.body.date);
@@ -110,15 +124,15 @@ app.post("/quoteform/:id", async (req, res) => {
     let newActioin = new fuelQuoteModule();
     let testQuote = newActioin.UCLocationOC(cityChossin, gallonVal, getDate, userAdress)
     newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
-    const filter = { _id: req.params.id };
-    const update = { $push: { QuoteHist: testQuote } };
+    const filter = { _id: req.session.userID};
+    const update = { $push: {QuoteHist: testQuote } };
     const options = { new: true };
     foundUser=await coll.findOneAndUpdate(filter, update, options);
-     res.render("quoteform", {userId: req.params.id,"add1":foundUser.address1});
+     res.render("quoteform", {"add1":foundUser.address1});
 
 })
 
-app.post("/profmgmt/:id", async (req, res) => {
+app.post("/profmgmt", async (req, res) => {
   const {
         fullname,
         address1,
@@ -127,12 +141,12 @@ app.post("/profmgmt/:id", async (req, res) => {
         states,
         zip
     } = req.body;
-    const filter = { _id: req.params.id }
+    const filter = { _id: req.session.userID}
     const update = { fullname, address1, address2, city, states, zip }
     const options = { new: true };
     const updatedUser = await coll.findOneAndUpdate(filter, update, options);
     console.log("Updated Profile in (profmgmt Post Request");
-    const check = await coll.findOne({_id:req.params.id})
-    res.render("index",{ userId: req.params.id, user:check })
+    const check = await coll.findOne({_id:req.session.userID})
+    res.render("index",{user:check})
 })
 app.listen(3000)

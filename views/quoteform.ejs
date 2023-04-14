@@ -22,7 +22,7 @@
   }
   </style>
   <h1>Fuel Quote Form</h1>
-  <form id="myForm" action="/quoteform/<%= locals.userId %>" method="POST">
+  <form id="myForm" action="/quoteform" method="POST">
   <body style="background-color:beige;">
     <form method="post">
   <div class="login">
@@ -103,9 +103,15 @@
 </form>
 <div>
 <br><br>
-<button onclick="location.href='/quotehist/<%= locals.userId %>'"+>Check User Quote History</button>
+<button onclick="location.href='/quotehist'"+>Check User Quote History</button>
 <br><br>
 </form>
+<form action="/logout" method="POST">
+  <button type="submit">Log Out</button>
+</form>
 </div>
+<form action="/index" method="POST">
+	<button type="submit">Main Page</button>
+  </form>
   </body>
 </html>

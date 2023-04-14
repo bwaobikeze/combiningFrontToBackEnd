@@ -18,11 +18,14 @@ h3 {
         <script>
             alert('Please fill out Profile information before continuing to the form')
         </script>
-        <a href="/profmgmt/<%= locals.userId %>">Profile Management</html>
+        <a href="/profmgmt">Profile Management</html>
     <%}else{%>
-        <a href="/profmgmt/<%= locals.userId %>">Profile Management</html>
-        <a href="/quoteform/<%=locals.userId %>">Quote Form</html>
-        <a href="/quotehist/<%= locals.userId %>">Quote History</html>
+        <a href="/profmgmt">Profile Management</html>
+        <a href="/quoteform">Quote Form</html>
+        <a href="/quotehist">Quote History</html>
         <%}%>
 </body>
+<form action="/logout" method="POST">
+    <button type="submit">Log Out</button>
+  </form>
 </div>

@@ -18,7 +18,7 @@
   }
   </style>
   <h1>Client Profile Management</h1>
-  <form action="/profmgmt/<%= locals.userId %>" method="POST">
+  <form action="/profmgmt" method="POST">
   <body style="background-color:beige;">
   <div class="login">
   <strong><label for="fullname"<b>Full Name: </b></label></strong><br>
@@ -93,6 +93,12 @@
   <br><br>
   <button type="submit">Save</button>
 </form>
+<form action="/logout" method="POST">
+	<button type="submit">Log Out</button>
+  </form>
   </div>
+  <form action="/index" method="POST">
+	<button type="submit">Main Page</button>
+  </form>
   </body>
 </html>
