@@ -2,12 +2,6 @@
 const { Console } = require("console");
 const quotes = require("./quotes");
 class fuelQuoteModule {
-  //3 City Price Per Gallon
-  UCCityPricesPerGallon = [
-    { city: "Houston", price: 1.5 },
-    { city: "Austin", price: 1.5 },
-    { city: "San Antonio", price: 1.5 },
-  ];
   //Takes the city input from the user and in theory return the current lowest PPG(price per gallon) returns PPG
   /*
   Explanation for function UCLocationOC():

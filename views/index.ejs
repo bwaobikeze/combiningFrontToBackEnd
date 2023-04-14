@@ -16,7 +16,7 @@ h3 {
 <div class="stuff">
     <% if(user.fullname === undefined && user.address1 === undefined &&  user.address2 === undefined &&  user.address1 === undefined && user.states === undefined && user.zip === undefined) { %>
         <script>
-            alert('Please fill out Profile information before clicking')
+            alert('Please fill out Profile information before continuing to the form')
         </script>
         <a href="/profmgmt/<%= locals.userId %>">Profile Management</html>
     <%}else{%>

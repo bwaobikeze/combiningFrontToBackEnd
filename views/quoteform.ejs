@@ -22,7 +22,7 @@
   }
   </style>
   <h1>Fuel Quote Form</h1>
-  <form action="/quoteform/<%= locals.userId %>" method="POST">
+  <form id="myForm" action="/quoteform/<%= locals.userId %>" method="POST">
   <body style="background-color:beige;">
     <form method="post">
   <div class="login">
@@ -97,8 +97,8 @@
   <strong><label for="totaldue"<b>Total Amount Due: </b></label></strong><br>
   <input type="number" name="totaldue" value="<%=locals.totaldue%>" id="userinfo" maxlength="100" disabled required>
   <br><br>
-  <button type="Getquote">Get Quote</button>
-  <button type="submit">OK</button>
+  <button type="submit" name="Getquote" value="true" formaction="/Partialquoteform/<%= locals.userId %>">Get Quote</button>
+  <button type="submit" name=" SaveQuote" value ="true">OK</button>
   </div>
 </form>
 <div>

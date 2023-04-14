@@ -23,7 +23,6 @@ app.get("/",(req,res)=>{
 
 app.get("/index", (req, res) => {
     res.redirect("/login");
-    //console.log(req.session.userID);
 })
 
 app.get("/register",(req,res)=>{
@@ -39,18 +38,16 @@ app.get("/profmgmt/:id",(req,res)=>{
 })
 
 app.get("/quoteform/:id",async(req,res)=>{
-    //console.log(req.params.id)
     const user = coll.findById(req.params.id)
     if (!user) {
         return res.status(404).send('User not found');
         res.render("quoteform")
     } else {
         console.log("User Found");
+        console.log("In /quoteform Get request");
         const User = await coll.findOne({ _id: req.params.id });
-        //console.log(User);
         res.render("quoteform", { add1: User.address1 ,userId: req.params.id});
     }
-    //console.log(user.username);
 })
 
 app.get("/quotehist/:id",async (req, res) => {
@@ -91,23 +88,33 @@ app.post("/login",async (req,res)=>{
         res.send("wrong details")
     }
 })
+app.post("/Partialquoteform/:id", async (req, res) => { 
+    foundUser = await coll.findById(req.params.id);
+    let gallonVal = req.body.gallons;
+    let getDate = new Date(req.body.date);
+    let cityChossin = req.body.state;
+    let userAdress = foundUser.address1;
+     let newActioin = new fuelQuoteModule();
+    let testQuote = newActioin.UCLocationOC(cityChossin, gallonVal, getDate, userAdress)
+    newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
+    res.render("quoteform", {"gallons":testQuote.gallon,"state":testQuote.citySelected ,"add1": testQuote.UsersDelveryAddress,"date":req.body.date, "totaldue": testQuote.totalQuote, "suggestprice": testQuote.sugestedPrice ,userId: req.params.id});
+
+})
 app.post("/quoteform/:id", async (req, res) => {
     foundUser = await coll.findById(req.params.id);
     //console.log(foundUser);
     let gallonVal = req.body.gallons;
     let getDate = new Date(req.body.date);
     let cityChossin = req.body.state;
-     let userAdress = foundUser.address1;
- let newActioin = new fuelQuoteModule();
+    let userAdress = foundUser.address1;
+    let newActioin = new fuelQuoteModule();
     let testQuote = newActioin.UCLocationOC(cityChossin, gallonVal, getDate, userAdress)
-    //console.log(testQuote);
     newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
-    console.log(testQuote);
     const filter = { _id: req.params.id };
     const update = { $push: { QuoteHist: testQuote } };
     const options = { new: true };
     foundUser=await coll.findOneAndUpdate(filter, update, options);
-     res.render("quoteform", { "add1": testQuote.UsersDelveryAddress, "totaldue": testQuote.totalQuote, "suggestprice": testQuote.sugestedPrice ,userId: req.params.id});
+     res.render("quoteform", {userId: req.params.id,"add1":foundUser.address1});
 
 })
 
@@ -124,7 +131,7 @@ app.post("/profmgmt/:id", async (req, res) => {
     const update = { fullname, address1, address2, city, states, zip }
     const options = { new: true };
     const updatedUser = await coll.findOneAndUpdate(filter, update, options);
-    console.log(filter);
+    console.log("Updated Profile in (profmgmt Post Request");
     const check = await coll.findOne({_id:req.params.id})
     res.render("index",{ userId: req.params.id, user:check })
 })
