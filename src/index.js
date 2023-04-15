@@ -3,6 +3,8 @@ const app=express()
 const path=require("path")
 const coll=require("./database")
 //const profs=require("./profiles")
+const fuelquote =require("./fuelquote")
+//import { createQuote } from "./fuelquote"
 const bcrypt = require('bcrypt')
 const session = require('express-session');
 const fuelQuoteModule = require("./fuelQuoteModule");
@@ -51,8 +53,9 @@ app.get("/quoteform",async(req,res)=>{
 })
 
 app.get("/quotehist",async (req, res) => {
-    const check = await coll.findById(req.session.userID)
-    res.render("quotehist",{QuoteHist:check.QuoteHist})
+    const check = await fuelquote.QuoteModel.find({ userId: req.session.userID })
+    console.log(check);
+    res.render("quotehist",{QuoteHist:check})
     console.log(req.session.userID);
 })
 
@@ -124,10 +127,8 @@ app.post("/quoteform", async (req, res) => {
     let newActioin = new fuelQuoteModule();
     let testQuote = newActioin.UCLocationOC(cityChossin, gallonVal, getDate, userAdress)
     newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
-    const filter = { _id: req.session.userID};
-    const update = { $push: {QuoteHist: testQuote } };
-    const options = { new: true };
-    foundUser=await coll.findOneAndUpdate(filter, update, options);
+    let newQuote = { userId:req.session.userID, gallonreq: gallonVal, deliveryaddress:userAdress, deliverydate:getDate,suggestedpricepergallon:testQuote.sugestedPrice, totalamountdue:testQuote.totalQuote  }
+    await fuelquote.createQuote(newQuote)
      res.render("quoteform", {"add1":foundUser.address1});
 
 })

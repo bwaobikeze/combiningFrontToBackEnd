@@ -42,11 +42,11 @@
 <tbody>
   <% for(let i=0; i<QuoteHist.length;i++) {%>
   <tr>
-    <td class="tg-0pky"><%= QuoteHist[i].gallon %></td>
-    <td class="tg-0pky"><%= QuoteHist[i].UsersDelveryAddress%></td>
-    <td class="tg-0pky"><%= QuoteHist[i].DelivaryDate%></td>
-    <td class="tg-0pky"><%= QuoteHist[i].sugestedPrice %></td>
-    <td class="tg-0pky"><%= QuoteHist[i].totalQuote%></td>
+    <td class="tg-0pky"><%= QuoteHist[i].gallonreq %></td>
+    <td class="tg-0pky"><%= QuoteHist[i].deliveryaddress%></td>
+    <td class="tg-0pky"><%= QuoteHist[i].deliverydate%></td>
+    <td class="tg-0pky"><%= QuoteHist[i].suggestedpricepergallon %></td>
+    <td class="tg-0pky"><%= QuoteHist[i].totalamountdue%></td>
   </tr>
   <% } %>
 </tbody>

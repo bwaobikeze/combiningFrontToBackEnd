@@ -33,9 +33,6 @@ const schema=new mongoose.Schema({
         maxLength: 9,
         required:true
     },
-    QuoteHist: {
-        type:[] 
-    }
 
 })
 
