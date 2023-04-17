@@ -2,7 +2,11 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/project")
 
-const schema=new mongoose.Schema({
+const schema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     fullname:{
         type:String, 
         maxLength: 50,

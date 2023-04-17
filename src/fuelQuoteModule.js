@@ -1,6 +1,7 @@
 
 const { Console } = require("console");
 const quotes = require("./quotes");
+const profs=require("./profiles")
 class fuelQuoteModule {
   //Takes the city input from the user and in theory return the current lowest PPG(price per gallon) returns PPG
   /*
@@ -67,28 +68,53 @@ class fuelQuoteModule {
   }
 
   //what profit margin we want calculate the quote for the user
-  UCPricingTotal(userQuote,Users) {
+  UCPricingTotal(userQuote,UserID) {
     const LocationFactTexas = 0.02;
     const LocationFactOutOfState = 0.04;
-        let ProfitMargin;
-        if (Users.length === 0) {
-          if (userQuote.gallon.valueOf() > 1000) {
-            ProfitMargin =
-              userQuote.getPrice() * (LocationFactTexas + 0.02 + 0.1);
-          } else {
-            ProfitMargin =
-              userQuote.getPrice() * (LocationFactTexas + 0.03 + 0.1);
-          }
+    let ProfitMargin;
+    const check = profs.findOne({ userId: UserID })
+    if (userQuote.citySelected == "TX") {
+      if (check) {
+          
+        if (userQuote.gallon.valueOf() > 1000) {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactTexas + 0.02 + 0.1);
         } else {
-          ProfitMargin = userQuote.getPrice() * (LocationFactTexas - 0.01);
-          if (userQuote.gallon.valueOf() > 1000) {
-            ProfitMargin =
-              userQuote.getPrice() * (LocationFactTexas - 0.01 + 0.02 + 0.1);
-          } else {
-            ProfitMargin =
-              userQuote.getPrice() * (LocationFactTexas - 0.01 + 0.03 + 0.1);
-          }
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactTexas + 0.03 + 0.1);
         }
+      } else {
+        ProfitMargin = userQuote.getPrice() * (LocationFactTexas - 0.01);
+        if (userQuote.gallon.valueOf() > 1000) {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactTexas - 0.01 + 0.02 + 0.1);
+        } else {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactTexas - 0.01 + 0.03 + 0.1);
+        }
+      }
+    } else {
+      if (check) {
+          
+        if (userQuote.gallon.valueOf() > 1000) {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactOutOfState + 0.02 + 0.1);
+        } else {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactOutOfState + 0.03 + 0.1);
+        }
+      } else {
+        ProfitMargin = userQuote.getPrice() * (LocationFactOutOfState - 0.01);
+        if (userQuote.gallon.valueOf() > 1000) {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactOutOfState - 0.01 + 0.02 + 0.1);
+        } else {
+          ProfitMargin =
+            userQuote.getPrice() * (LocationFactOutOfState - 0.01 + 0.03 + 0.1);
+        }
+      }
+    }
+
 
         userQuote.SetSugggestedPrice(ProfitMargin);
         userQuote.totalQuote =
