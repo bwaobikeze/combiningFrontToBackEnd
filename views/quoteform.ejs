@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+  <style>
+  h1 {
+  padding:40px;
+    text-align: center;
+  }
+  #userinfo{
+	width: 300px;
+	height: 30px;
+  }
+  #pswd{
+	width: 300px;
+	height: 30px;
+  }
+  .login{
+	position: absolute;
+	top: 35%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+  </style>
+  <h1>Fuel Quote Form</h1>
+  <form id="myForm" action="/quoteform" method="POST">
+  <body style="background-color:beige;">
+    <form method="post">
+  <div class="login">
+  <strong><label for="gallonsrequested"<b>Gallons Requested: <font color="red">Required</font> </b></label></strong><br> 
+  <input type="number" placeholder="Enter Gallons Requested" name="gallons"value="<%= locals.gallons %>" id="userinfo" maxlength="50" required > 
+  <br><br>
+  <strong><label for="City"<b>State: </b></label></strong><br>
+  <select id="state" name="state"value="<%= locals.state%>">
+    <option value="">Select a state</option>
+    <option value="AL"<% if (locals.state === "AL") { %>selected<% } %>>Alabama</option>
+    <option value="AK"<% if (locals.state === "AK") { %>selected<% } %>>Alaska</option>
+    <option value="AZ"<% if (locals.state === "AZ") { %>selected<% } %>>Arizona</option>
+    <option value="AR"<% if (locals.state === "AR") { %>selected<% } %>>Arkansas</option>
+    <option value="CA"<% if (locals.state === "CA") { %>selected<% } %>>California</option>
+    <option value="CO"<% if (locals.state === "CO") { %>selected<% } %>>Colorado</option>
+    <option value="CT"<% if (locals.state === "CT") { %>selected<% } %>>Connecticut</option>
+    <option value="DE"<% if (locals.state === "DE") { %>selected<% } %>>Delaware</option>
+    <option value="DC"<% if (locals.state === "DC") { %>selected<% } %>>District of Columbia</option>
+    <option value="FL"<% if (locals.state === "FL") { %>selected<% } %>>Florida</option>
+    <option value="GA"<% if (locals.state === "GA") { %>selected<% } %>>Georgia</option>
+    <option value="HI"<% if (locals.state === "HI") { %>selected<% } %>>Hawaii</option>
+    <option value="ID"<% if (locals.state === "ID") { %>selected<% } %>>Idaho</option>
+    <option value="IL"<% if (locals.state === "IL") { %>selected<% } %>>Illinois</option>
+    <option value="IN"<% if (locals.state === "IN") { %>selected<% } %>>Indiana</option>
+    <option value="IA" <% if (locals.state === 'IA') { %>selected<% } %>>Iowa</option>
+    <option value="KS" <% if (locals.state === 'KS') { %>selected<% } %>>Kansas</option>
+    <option value="KY" <% if (locals.state === 'KY') { %>selected<% } %>>Kentucky</option>
+    <option value="LA" <% if (locals.state === 'LA') { %>selected<% } %>>Louisiana</option>
+    <option value="ME" <% if (locals.state === 'ME') { %>selected<% } %>>Maine</option>
+    <option value="MD" <% if (locals.state === 'MD') { %>selected<% } %>>Maryland</option>
+    <option value="MA" <% if (locals.state === 'MA') { %>selected<% } %>>Massachusetts</option>
+    <option value="MI" <% if (locals.state === 'MI') { %>selected<% } %>>Michigan</option>
+    <option value="MN" <% if (locals.state === 'MN') { %>selected<% } %>>Minnesota</option>
+    <option value="MS" <% if (locals.state === 'MS') { %>selected<% } %>>Mississippi</option>
+    <option value="MO" <% if (locals.state === 'MO') { %>selected<% } %>>Missouri</option>
+    <option value="MT" <% if (locals.state === 'MT') { %>selected<% } %>>Montana</option>
+    <option value="NE" <% if (locals.state === 'NE') { %>selected<% } %>>Nebraska</option>
+    <option value="NV" <% if (locals.state === 'NV') { %>selected<% } %>>Nevada</option>
+    <option value="NH" <% if (locals.state === 'NH') { %>selected<% } %>>New Hampshire</option>
+    <option value="NJ" <% if (locals.state === 'NJ') { %>selected<% } %>>New Jersey</option>
+    <option value="NM" <% if (locals.state === 'NM') { %>selected<% } %>>New Mexico</option>
+    <option value="NY" <% if (locals.state === 'NY') { %>selected<% } %>>New York</option>
+    <option value="NC" <% if (locals.state === 'NC') { %>selected<% } %>>North Carolina</option>
+    <option value="ND" <% if (locals.state === 'ND') { %>selected<% } %>>North Dakota</option>
+    <option value="OH" <% if (locals.state === 'OH') { %>selected<% } %>>Ohio</option>
+    <option value="NM"<% if (locals.state === 'NM') { %>selected<% } %>>New Mexico</option>
+    <option value="NY"<% if (locals.state === 'NY') { %>selected<% } %>>New York</option>
+    <option value="NC"<% if (locals.state === 'NC') { %>selected<% } %>>North Carolina</option>
+    <option value="ND"<% if (locals.state === 'ND') { %>selected<% } %>>North Dakota</option>
+    <option value="OH"<% if (locals.state === 'OH') { %>selected<% } %>>Ohio</option>
+    <option value="OK"<% if (locals.state === 'OK') { %>selected<% } %>>Oklahoma</option>
+    <option value="OR"<% if (locals.state === 'OR') { %>selected<% } %>>Oregon</option>
+    <option value="PA"<% if (locals.state === 'PA') { %>selected<% } %>>Pennsylvania</option>
+    <option value="RI"<% if (locals.state === 'RI') { %>selected<% } %>>Rhode Island</option>
+    <option value="SC"<% if (locals.state === 'SC') { %>selected<% } %>>South Carolina</option>
+    <option value="SD"<% if (locals.state === 'SD') { %>selected<% } %>>South Dakota</option>
+    <option value="TN"<% if (locals.state === 'TN') { %>selected<% } %>>Tennessee</option>
+    <option value="TX"<% if (locals.state === "TX") { %>selected<% } %>>Texas</option>
+    <option value="UT"<% if (locals.state === 'UT') { %>selected<% } %>>Utah</option>
+    <option value="VT"<% if (locals.state === 'VT') { %>selected<% } %>>Vermont</option>
+    <option value="VA"<% if (locals.state === 'VA') { %>selected<% } %>>Virginia</option>
+    <option value="WA"<% if (locals.state === 'WA') { %>selected<% } %>>Washington</option>
+    <option value="WV"<% if (locals.state === 'WV') { %>selected<% } %>>West Virginia</option>
+    <option value="WI"<% if (locals.state === 'WI') { %>selected<% } %>>Wisconsin</option>
+    <option value="WY"<% if (locals.state === 'WY') { %>selected<% } %>>Wyoming</option>
+  </select>  
+  <br><br>
+  <strong><label for="deliveryaddress"<b>Delivery Address: </b></label></strong><br>
+  <input type="text" name="add1"value="<%= locals.add1%>" id="userinfo" maxlength="100" disabled required>
+  <br><br>
+  <strong><label for="deliverydate"<b>Delivery Date: </b></label></strong><br>
+  <input type="date" name="date" value="<%= locals.date%>">
+  <br><br>
+  <strong><label for="suggestprice"<b>Suggested Price: <font color="red"></font></b></label></strong><br>
+  <input type="number" name="suggestprice" value="<%=locals.suggestprice%>" id="userinfo" maxlength="100" disabled required>
+  <br><br>
+  <strong><label for="totaldue"<b>Total Amount Due: </b></label></strong><br>
+  <input type="number" name="totaldue" value="<%=locals.totaldue%>" id="userinfo" maxlength="100" disabled required>
+  <br><br>
+  <button type="submit" name="Getquote" value="true" formaction="/Partialquoteform/<%= locals.userId %>">Get Quote</button>
+  <button type="submit" name=" SaveQuote" value ="true">OK</button>
+  </div>
+</form>
+<div>
+<br><br>
+<button onclick="location.href='/quotehist'"+>Check User Quote History</button>
+<br><br>
+</form>
+<form action="/logout" method="POST">
+  <button type="submit">Log Out</button>
+</form>
+</div>
+<form action="/index" method="POST">
+	<button type="submit">Main Page</button>
+  </form>
+  </body>
+</html>
