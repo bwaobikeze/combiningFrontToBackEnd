@@ -140,6 +140,7 @@ app.post("/quoteform", async (req, res) => {
   let cityChossin = req.body.state;
   let userAdress = foundUser.address1;
   let newActioin = new fuelQuoteModule();
+
   let testQuote = newActioin.UCLocationOC(
     cityChossin,
     gallonVal,

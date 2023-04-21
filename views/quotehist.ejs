@@ -15,6 +15,29 @@
 	top: 35%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+  height: 500px;
+  overflow-y: auto;
+  }
+
+  .table-container {
+        height: 500px;
+        overflow: auto;
+      }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid black;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    text-align: left;
+    vertical-align: top;
+    word-break: normal;
   }
   </style>
   <h1>Fuel Quote History</h1>
@@ -29,28 +52,30 @@
   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 </style>
-<table class="tg">
+<div class ="table-container">
+<table>
 <thead>
   <tr>
-    <th class="tg-0pky">Gallons Requested</th>
-    <th class="tg-0pky">Delivery Address</th>
-    <th class="tg-0pky">Delivery Date</th>
-    <th class="tg-0pky">Suggested Price</th>
-    <th class="tg-0pky">Total Amount Due</th>
+    <th>Gallons Requested</th>
+    <th>Delivery Address</th>
+    <th>Delivery Date</th>
+    <th>Suggested Price</th>
+    <th>Total Amount Due</th>
   </tr>
 </thead>
 <tbody>
   <% for(let i=0; i<QuoteHist.length;i++) {%>
   <tr>
-    <td class="tg-0pky"><%= QuoteHist[i].gallonreq %></td>
-    <td class="tg-0pky"><%= QuoteHist[i].deliveryaddress%></td>
-    <td class="tg-0pky"><%= QuoteHist[i].deliverydate%></td>
-    <td class="tg-0pky"><%= QuoteHist[i].suggestedpricepergallon %></td>
-    <td class="tg-0pky"><%= QuoteHist[i].totalamountdue%></td>
+    <td><%= QuoteHist[i].gallonreq %></td>
+    <td><%= QuoteHist[i].deliveryaddress%></td>
+    <td><%= QuoteHist[i].deliverydate%></td>
+    <td><%= QuoteHist[i].suggestedpricepergallon %></td>
+    <td><%= QuoteHist[i].totalamountdue%></td>
   </tr>
   <% } %>
 </tbody>
 </table>
+</div>
   </div>
 </form>
   </body>

@@ -29,8 +29,8 @@
   <strong><label for="gallonsrequested"<b>Gallons Requested: <font color="red">Required</font> </b></label></strong><br> 
   <input type="number" placeholder="Enter Gallons Requested" name="gallons"value="<%= locals.gallons %>" id="userinfo" maxlength="50" required > 
   <br><br>
-  <strong><label for="City"<b>State: </b></label></strong><br>
-  <select id="state" name="state"value="<%= locals.state%>">
+  <strong><label for="City"<b>State:  <font color="red">Required</font></b></label></strong><br>
+  <select id="state" name="state"value="<%= locals.state%>"required>
     <option value="">Select a state</option>
     <option value="AL"<% if (locals.state === "AL") { %>selected<% } %>>Alabama</option>
     <option value="AK"<% if (locals.state === "AK") { %>selected<% } %>>Alaska</option>
@@ -93,17 +93,17 @@
   <strong><label for="deliveryaddress"<b>Delivery Address: </b></label></strong><br>
   <input type="text" name="add1"value="<%= locals.add1%>" id="userinfo" maxlength="100" disabled required>
   <br><br>
-  <strong><label for="deliverydate"<b>Delivery Date: </b></label></strong><br>
-  <input type="date" name="date" value="<%= locals.date%>">
+  <strong><label for="deliverydate"<b>Delivery Date: <font color="red">Required</font></b></label></strong><br>
+  <input type="date" name="date" value="<%= locals.date%>"required>
   <br><br>
   <strong><label for="suggestprice"<b>Suggested Price: <font color="red"></font></b></label></strong><br>
-  <input type="number" name="suggestprice" value="<%=locals.suggestprice%>" id="userinfo" maxlength="100" disabled required>
+  <input type="number" name="suggestprice" value="<%=locals.suggestprice%>" id="userinfo" maxlength="100" disabled>
   <br><br>
   <strong><label for="totaldue"<b>Total Amount Due: </b></label></strong><br>
-  <input type="number" name="totaldue" value="<%=locals.totaldue%>" id="userinfo" maxlength="100" disabled required>
+  <input type="number" name="totaldue" value="<%=locals.totaldue%>" id="userinfo" maxlength="100" disabled>
   <br><br>
-  <button type="submit" name="Getquote" value="true" formaction="/Partialquoteform/<%= locals.userId %>">Get Quote</button>
-  <button type="submit" name=" SaveQuote" value ="true">OK</button>
+  <button type="submit" id="view-button" name="Getquote" value="true" formaction="/Partialquoteform/<%= locals.userId %>">Get Quote</button>
+  <button type="submit" id="submit-button"name=" SaveQuote" value ="true">OK</button>
   </div>
 </form>
 <div>
@@ -114,6 +114,32 @@
 <form action="/logout" method="POST">
   <button type="submit">Log Out</button>
 </form>
+<script>
+  const submitButton = document.querySelector('#submit-button');
+  const SaveButton = document.querySelector('#view-button');
+  const requiredFields = document.querySelectorAll('input[required]');
+  const dropdown = document.getElementById('state');
+
+  function checkForm() {
+    let formIsValid = true;
+    requiredFields.forEach(field => {
+      if (!field.value||dropdown.value==="") {
+        formIsValid = false;
+      }
+    });
+    if (formIsValid) {
+      submitButton.removeAttribute('disabled');
+      SaveButton.removeAttribute('disabled');
+    } else {
+      submitButton.setAttribute('disabled', '');
+      SaveButton.setAttribute('disabled', '');
+    }
+  }
+
+  requiredFields.forEach(field => {
+    field.addEventListener('input', checkForm);
+  });
+</script>
 </div>
 <form action="/index" method="POST">
 	<button type="submit">Main Page</button>
