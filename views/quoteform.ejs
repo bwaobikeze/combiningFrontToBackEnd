@@ -134,11 +134,19 @@
       submitButton.setAttribute('disabled', '');
       SaveButton.setAttribute('disabled', '');
     }
+    if (dropdown.value === "") {
+      submitButton.setAttribute('disabled', '');
+      SaveButton.setAttribute('disabled', '');
+    } else {
+      submitButton.removeAttribute('disabled');
+      SaveButton.removeAttribute('disabled');
+    }
   }
 
   requiredFields.forEach(field => {
     field.addEventListener('input', checkForm);
   });
+  dropdown.addEventListener('change', checkForm); 
 </script>
 </div>
 <form action="/index" method="POST">
