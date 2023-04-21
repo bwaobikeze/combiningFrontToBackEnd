@@ -23,6 +23,11 @@
   <form action="/login" method="POST">
   <body style="background-color:beige;">
   <div class="login">
+    <% if(locals.message){%>
+      <div class="alert alert-danger">
+        <%=locals.message%>
+      </div>
+      <% }%>
   <strong><label for="username"<b>Username: </b></label></strong><br>
   <input type="text" placeholder="Enter Username" name="username" id="username" required>
   <br><br>

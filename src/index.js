@@ -95,10 +95,12 @@ app.post("/login", async (req, res) => {
         res.render("index", { user: false });
       }
     } else {
-      res.send("wrong password");
+      req.session.message = "Incorrect password";
+      res.render("login", { message: req.session.message });
     }
   } catch {
-    res.send("wrong details");
+    req.session.message = "Wrong Details (May want to register first)";
+    res.render("login", { message: req.session.message });
   }
 });
 app.post("/logout", function (req, res) {
