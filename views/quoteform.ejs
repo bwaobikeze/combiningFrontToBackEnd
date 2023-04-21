@@ -123,23 +123,16 @@
   function checkForm() {
     let formIsValid = true;
     requiredFields.forEach(field => {
-      if (!field.value||dropdown.value==="") {
+      if (!field.value) {
         formIsValid = false;
       }
     });
-    if (formIsValid) {
+    if (formIsValid&&dropdown.value !== "") {
       submitButton.removeAttribute('disabled');
       SaveButton.removeAttribute('disabled');
     } else {
       submitButton.setAttribute('disabled', '');
       SaveButton.setAttribute('disabled', '');
-    }
-    if (dropdown.value === "") {
-      submitButton.setAttribute('disabled', '');
-      SaveButton.setAttribute('disabled', '');
-    } else {
-      submitButton.removeAttribute('disabled');
-      SaveButton.removeAttribute('disabled');
     }
   }
 
