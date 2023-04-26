@@ -26,6 +26,11 @@
   }
   </style>
   <h1>Register</h1>
+  <% if(locals.message){%>
+    <div class="alert alert-danger">
+      <%=locals.message%>
+    </div>
+    <% }%>
   <form action="/register" method="POST">
   <body style="background-color:beige;">
   <div class="login">
