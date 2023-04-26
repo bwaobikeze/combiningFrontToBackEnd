@@ -75,7 +75,6 @@ app.post("/register", async (req, res) => {
 
   const existingUser = await coll.findOne({ username: req.body.username });
   if (existingUser) {
-    //res.send("Username already exists");
     req.session.message2 = "Username already exists";
     res.render("register", { message: req.session.message2 });
     return;
