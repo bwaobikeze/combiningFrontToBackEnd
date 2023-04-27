@@ -36,15 +36,26 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/profmgmt", (req, res) => {
-  res.render("profmgmt");
+app.get("/profmgmt", async (req, res) => {
+  const check = await profs.findOne({ userId: req.session.userID });
+  if (check) {
+    res.render("profmgmt", {
+      fullname: check.fullname,
+      address1: check.address1,
+      address2: check.address2,
+      city: check.city,
+      state: check.states,
+      zip: check.zip,
+    });
+  } else {
+    res.render("profmgmt");
+  }
 });
 
 app.get("/quoteform", async (req, res) => {
   const user = profs.findOne({ userId: req.session.userID });
   if (!user) {
     return res.status(404).send("User not found");
-    res.render("quoteform");
   } else {
     console.log("User Found");
     console.log("In /quoteform Get request");
@@ -195,3 +206,4 @@ app.post("/profmgmt", async (req, res) => {
   }
 });
 app.listen(3000);
+module.exports = app;

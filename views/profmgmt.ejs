@@ -64,74 +64,80 @@
   <form action="/profmgmt" method="POST">
   <div class="login">
   <strong><label for="fullname"<b>Full Name: </b></label></strong><br>
-  <input type="text" placeholder="Enter Username" name="fullname" id="userinfo" maxlength="50" required>
+  <input type="text" placeholder="Enter Username" name="fullname"value="<%= locals.fullname%>" id="userinfo" maxlength="50" required>
   <br><br>
   <strong><label for="address1"<b>Address 1: </b></label></strong><br>
-  <input type="text" placeholder="Enter Address" name="address1" id="userinfo" maxlength="100" required>
+  <input type="text" placeholder="Enter Address" name="address1"  value="<%= locals.address1%>" id="userinfo" maxlength="100" required>
   <br><br>
   <strong><label for="address2"<b>Address 2: </b></label></strong><br>
-  <input type="text" placeholder="Enter Second Address (Optional)" name="address2" id="userinfo" maxlength="100">
+  <input type="text" placeholder="Enter Second Address (Optional)" name="address2" value="<%= locals.address2%>" id="userinfo" maxlength="100">
   <br><br>
   <strong><label for="city"<b>City: </b></label></strong><br>
-  <input type="text" placeholder="Enter City" name="city" id="userinfo" maxlength="100" required>
+  <input type="text" placeholder="Enter City" name="city" value="<%= locals.city%>" id="userinfo" maxlength="100" required>
   <br><br>
   <strong><label for="state"<b>State: </b></label></strong><br>
-  <select name="states" id="states">
-	<option value="AL">AL</option>
-	<option value="AK">AK</option>
-	<option value="AR">AR</option>
-	<option value="AZ">AZ</option>
-	<option value="CA">CA</option>
-	<option value="CO">CO</option>
-	<option value="CT">CT</option>
-	<option value="DC">DC</option>
-	<option value="DE">DE</option>
-	<option value="FL">FL</option>
-	<option value="GA">GA</option>
-	<option value="HI">HI</option>
-	<option value="IA">IA</option>
-	<option value="ID">ID</option>
-	<option value="IL">IL</option>
-	<option value="IN">IN</option>
-	<option value="KS">KS</option>
-	<option value="KY">KY</option>
-	<option value="LA">LA</option>
-	<option value="MA">MA</option>
-	<option value="MD">MD</option>
-	<option value="ME">ME</option>
-	<option value="MI">MI</option>
-	<option value="MN">MN</option>
-	<option value="MO">MO</option>
-	<option value="MS">MS</option>
-	<option value="MT">MT</option>
-	<option value="NC">NC</option>
-	<option value="NE">NE</option>
-	<option value="NH">NH</option>
-	<option value="NJ">NJ</option>
-	<option value="NM">NM</option>
-	<option value="NV">NV</option>
-	<option value="NY">NY</option>
-	<option value="ND">ND</option>
-	<option value="OH">OH</option>
-	<option value="OK">OK</option>
-	<option value="OR">OR</option>
-	<option value="PA">PA</option>
-	<option value="RI">RI</option>
-	<option value="SC">SC</option>
-	<option value="SD">SD</option>
-	<option value="TN">TN</option>
-	<option value="TX">TX</option>
-	<option value="UT">UT</option>
-	<option value="VT">VT</option>
-	<option value="VA">VA</option>
-	<option value="WA">WA</option>
-	<option value="WI">WI</option>
-	<option value="WV">WV</option>
-	<option value="WY">WY</option>
+  <select name="states" value="<%= locals.state%>" id="states">
+    <option value="">Select a state</option>
+    <option value="AL"<% if (locals.state === "AL") { %>selected<% } %>>Alabama</option>
+    <option value="AK"<% if (locals.state === "AK") { %>selected<% } %>>Alaska</option>
+    <option value="AZ"<% if (locals.state === "AZ") { %>selected<% } %>>Arizona</option>
+    <option value="AR"<% if (locals.state === "AR") { %>selected<% } %>>Arkansas</option>
+    <option value="CA"<% if (locals.state === "CA") { %>selected<% } %>>California</option>
+    <option value="CO"<% if (locals.state === "CO") { %>selected<% } %>>Colorado</option>
+    <option value="CT"<% if (locals.state === "CT") { %>selected<% } %>>Connecticut</option>
+    <option value="DE"<% if (locals.state === "DE") { %>selected<% } %>>Delaware</option>
+    <option value="DC"<% if (locals.state === "DC") { %>selected<% } %>>District of Columbia</option>
+    <option value="FL"<% if (locals.state === "FL") { %>selected<% } %>>Florida</option>
+    <option value="GA"<% if (locals.state === "GA") { %>selected<% } %>>Georgia</option>
+    <option value="HI"<% if (locals.state === "HI") { %>selected<% } %>>Hawaii</option>
+    <option value="ID"<% if (locals.state === "ID") { %>selected<% } %>>Idaho</option>
+    <option value="IL"<% if (locals.state === "IL") { %>selected<% } %>>Illinois</option>
+    <option value="IN"<% if (locals.state === "IN") { %>selected<% } %>>Indiana</option>
+    <option value="IA" <% if (locals.state === 'IA') { %>selected<% } %>>Iowa</option>
+    <option value="KS" <% if (locals.state === 'KS') { %>selected<% } %>>Kansas</option>
+    <option value="KY" <% if (locals.state === 'KY') { %>selected<% } %>>Kentucky</option>
+    <option value="LA" <% if (locals.state === 'LA') { %>selected<% } %>>Louisiana</option>
+    <option value="ME" <% if (locals.state === 'ME') { %>selected<% } %>>Maine</option>
+    <option value="MD" <% if (locals.state === 'MD') { %>selected<% } %>>Maryland</option>
+    <option value="MA" <% if (locals.state === 'MA') { %>selected<% } %>>Massachusetts</option>
+    <option value="MI" <% if (locals.state === 'MI') { %>selected<% } %>>Michigan</option>
+    <option value="MN" <% if (locals.state === 'MN') { %>selected<% } %>>Minnesota</option>
+    <option value="MS" <% if (locals.state === 'MS') { %>selected<% } %>>Mississippi</option>
+    <option value="MO" <% if (locals.state === 'MO') { %>selected<% } %>>Missouri</option>
+    <option value="MT" <% if (locals.state === 'MT') { %>selected<% } %>>Montana</option>
+    <option value="NE" <% if (locals.state === 'NE') { %>selected<% } %>>Nebraska</option>
+    <option value="NV" <% if (locals.state === 'NV') { %>selected<% } %>>Nevada</option>
+    <option value="NH" <% if (locals.state === 'NH') { %>selected<% } %>>New Hampshire</option>
+    <option value="NJ" <% if (locals.state === 'NJ') { %>selected<% } %>>New Jersey</option>
+    <option value="NM" <% if (locals.state === 'NM') { %>selected<% } %>>New Mexico</option>
+    <option value="NY" <% if (locals.state === 'NY') { %>selected<% } %>>New York</option>
+    <option value="NC" <% if (locals.state === 'NC') { %>selected<% } %>>North Carolina</option>
+    <option value="ND" <% if (locals.state === 'ND') { %>selected<% } %>>North Dakota</option>
+    <option value="OH" <% if (locals.state === 'OH') { %>selected<% } %>>Ohio</option>
+    <option value="NM"<% if (locals.state === 'NM') { %>selected<% } %>>New Mexico</option>
+    <option value="NY"<% if (locals.state === 'NY') { %>selected<% } %>>New York</option>
+    <option value="NC"<% if (locals.state === 'NC') { %>selected<% } %>>North Carolina</option>
+    <option value="ND"<% if (locals.state === 'ND') { %>selected<% } %>>North Dakota</option>
+    <option value="OH"<% if (locals.state === 'OH') { %>selected<% } %>>Ohio</option>
+    <option value="OK"<% if (locals.state === 'OK') { %>selected<% } %>>Oklahoma</option>
+    <option value="OR"<% if (locals.state === 'OR') { %>selected<% } %>>Oregon</option>
+    <option value="PA"<% if (locals.state === 'PA') { %>selected<% } %>>Pennsylvania</option>
+    <option value="RI"<% if (locals.state === 'RI') { %>selected<% } %>>Rhode Island</option>
+    <option value="SC"<% if (locals.state === 'SC') { %>selected<% } %>>South Carolina</option>
+    <option value="SD"<% if (locals.state === 'SD') { %>selected<% } %>>South Dakota</option>
+    <option value="TN"<% if (locals.state === 'TN') { %>selected<% } %>>Tennessee</option>
+    <option value="TX"<% if (locals.state === "TX") { %>selected<% } %>>Texas</option>
+    <option value="UT"<% if (locals.state === 'UT') { %>selected<% } %>>Utah</option>
+    <option value="VT"<% if (locals.state === 'VT') { %>selected<% } %>>Vermont</option>
+    <option value="VA"<% if (locals.state === 'VA') { %>selected<% } %>>Virginia</option>
+    <option value="WA"<% if (locals.state === 'WA') { %>selected<% } %>>Washington</option>
+    <option value="WV"<% if (locals.state === 'WV') { %>selected<% } %>>West Virginia</option>
+    <option value="WI"<% if (locals.state === 'WI') { %>selected<% } %>>Wisconsin</option>
+    <option value="WY"<% if (locals.state === 'WY') { %>selected<% } %>>Wyoming</option>
 	</select>
   <br><br>
   <strong><label for="zip"<b>Zipcode: </b></label></strong><br>
-  <input type="number" placeholder="Enter Zipcode" name="zip" id="userinfo" maxlength="9" required>
+  <input type="number" placeholder="Enter Zipcode" name="zip"value="<%= locals.zip%>" id="userinfo" maxlength="9" required>
   <br><br>
   <button type="submit">Save</button>
 </form>
