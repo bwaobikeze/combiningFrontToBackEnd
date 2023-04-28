@@ -77,7 +77,7 @@ app.get("/quoteform", async (req, res) => {
     console.log("User Found");
     console.log("In /quoteform Get request");
     const User = await profs.findOne({ userId: req.session.userID });
-    res.render("quoteform", { add1: User.address1 });
+    res.render("quoteform", { add1: User.address1, state: User.states });
   }
 });
 /********************************************************
@@ -250,7 +250,10 @@ app.post("/quoteform", async (req, res) => {
     totalamountdue: testQuote.totalQuote,
   };
   await fuelquote.createQuote(newQuote);
-  res.render("quoteform", { add1: foundUser.address1 });
+  res.render("quoteform", {
+    add1: foundUser.address1,
+    state: foundUser.states,
+  });
 });
 /********************************************************
 performing A POST request to the Profile management page route:
