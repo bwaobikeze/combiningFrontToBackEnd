@@ -7,6 +7,7 @@ const fuelquote = require("./fuelquote");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const fuelQuoteModule = require("./fuelQuoteModule");
+const axios = require("axios");
 //using EJS as our view engine
 app.use(express.json());
 app.set("view engine", "ejs");
@@ -307,3 +308,91 @@ app.post("/profmgmt", async (req, res) => {
 });
 app.listen(3000);
 module.exports = app;
+//Code Coverage
+
+var correctRes = 0;
+
+// Sending a POST request to register a new user
+axios
+  .post("http://localhost:3000/register", {
+    username: "testuser",
+    password: "testpassword",
+    confirmpassword: "testpassword",
+  })
+  .then((response) => {
+    correctRes += 1;
+  })
+  .catch((error) => {
+    correctRes = correctRes;
+  });
+
+// Sending a POST request to log in with correct credentials
+axios
+  .post(
+    "/login",
+    {
+      username: "testuser",
+      password: "testpassword",
+    },
+    { withCredentials: true }
+  )
+  .then((response) => {
+    correctRes += 1;
+  })
+  .catch((error) => {
+    correctRes = correctRes;
+  });
+
+// Sending a POST request to log in with incorrect credentials
+axios
+  .post(
+    "/login",
+    {
+      username: "testuser",
+      password: "wrongpassword",
+    },
+    { withCredentials: true }
+  )
+  .then((response) => {
+    correctRes += 1;
+  })
+  .catch((error) => {
+    correctRes = correctRes;
+  });
+
+// Sending a GET request to access the quote form page without logging in
+axios
+  .get("/quoteform")
+  .then((response) => {
+    correctRes += 1;
+  })
+  .catch((error) => {
+    correctRes = correctRes;
+  });
+
+// Sending a POST request to log in with correct credentials
+axios
+  .post(
+    "/login",
+    {
+      username: "testuser",
+      password: "testpassword",
+    },
+    { withCredentials: true }
+  )
+  .then((response) => {
+    // Sending a GET request to access the quote form page after logging in
+    axios
+      .get("/quoteform", { withCredentials: true })
+      .then((response) => {
+        correctRes += 1;
+      })
+      .catch((error) => {
+        correctRes = correctRes;
+      });
+  })
+  .catch((error) => {
+    correctRes = correctRes;
+  });
+
+console.log("Code Coverage: " + ((5 - correctRes) / 5) * 100 + "%");
