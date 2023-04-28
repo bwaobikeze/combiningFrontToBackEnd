@@ -31,6 +31,8 @@ const schema = new mongoose.Schema({
 });
 
 const QuoteModel = new mongoose.model("Quote", schema);
+
+//function to create the quote based on the schemea
 const createQuote = async function (values) {
   try {
     //const { userId, gallonreq, deliveryaddress, deliverydate, suggestedpricepergallon, totalamountdue } = values

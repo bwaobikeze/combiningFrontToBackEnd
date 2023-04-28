@@ -2,13 +2,10 @@ const { Console } = require("console");
 const quotes = require("./quotes");
 const profs = require("./profiles");
 class fuelQuoteModule {
-  //Takes the city input from the user and in theory return the current lowest PPG(price per gallon) returns PPG
   /*
   Explanation for function UCLocationOC():
-  takes in the user selected city and the gallon requested and searches through the  UCCityPricesPerGallon list 
-  searching for the city it requested, once found we create a new quote object 
-  and set the gallon requested to the gallon property and set the price to the SetSugggestedPrice property
-  then return the quote object to use on the functions.
+  takes in the user selected state selected, gallons requested, the delvery date, and address
+  and creates a quote object
    */
   UCLocationOC(CityDropDown, GallonsRequested, deliverDate, adresPassed) {
     var tempQ = new quotes();
@@ -28,15 +25,15 @@ class fuelQuoteModule {
   and searches through the user database list and then once we find the user email that we also 
   passed in we retrieve that users quote history list and push/add the latest quote object into the users UserHistory list  breaks out of the loop 
    */
-  UCClienQuoteManagement(UCQuote, userID, UserDBLIst) {
-    var UserDBLIst;
-    for (let i = 0; i < UserDBLIst.length; i++) {
-      if (userID == UserDBLIst[i].id) {
-        ListOfUsers[i].UserHistory.push(UCQuote);
-        break;
-      }
-    }
-  }
+  // UCClienQuoteManagement(UCQuote, userID, UserDBLIst) {
+  //   var UserDBLIst;
+  //   for (let i = 0; i < UserDBLIst.length; i++) {
+  //     if (userID == UserDBLIst[i].id) {
+  //       ListOfUsers[i].UserHistory.push(UCQuote);
+  //       break;
+  //     }
+  //   }
+  // }
 
   //displays quotes in a tabular display(this should return data in a format that the front end team can display anyway they like.
   /*
@@ -52,19 +49,19 @@ class fuelQuoteModule {
    * @param {*} userEmail
    * @param {*} UserDBLIst
    */
-  UCClientHistory(userEmail, UserDBLIst) {
-    var UserDBLIst = [];
-    var returnedUser;
-    for (let i = 0; i < ListOfUsers.length; i++) {
-      if (userEmail == UserDBLIst[i].email) {
-        returnedUser = UserDBLIst[i];
-        break;
-      }
-    }
-    returnedUser.UserHistory.forEach((element) => {
-      Console.log(element);
-    });
-  }
+  // UCClientHistory(userEmail, UserDBLIst) {
+  //   var UserDBLIst = [];
+  //   var returnedUser;
+  //   for (let i = 0; i < ListOfUsers.length; i++) {
+  //     if (userEmail == UserDBLIst[i].email) {
+  //       returnedUser = UserDBLIst[i];
+  //       break;
+  //     }
+  //   }
+  //   returnedUser.UserHistory.forEach((element) => {
+  //     Console.log(element);
+  //   });
+  // }
 
   //what profit margin we want calculate the quote for the user
   UCPricingTotal(userQuote, UserID) {
@@ -72,6 +69,8 @@ class fuelQuoteModule {
     const LocationFactOutOfState = 0.04;
     let ProfitMargin;
     const check = profs.findOne({ userId: UserID });
+
+    //calculates the total based on the criteria given to us
     if (userQuote.citySelected == "TX") {
       if (check) {
         ProfitMargin = userQuote.getPrice() * (LocationFactTexas - 0.01);

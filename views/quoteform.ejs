@@ -116,12 +116,14 @@
 <form action="/logout" method="POST">
   <button type="submit">Log Out</button>
 </form>
+<!-- This script just handles to see if the form is complety filled out
+if it is then both the "Get Quote" & "OK" button are able to be clicked
+if not then the buttons are diabled -->
 <script>
   const submitButton = document.querySelector('#submit-button');
   const SaveButton = document.querySelector('#view-button');
   const requiredFields = document.querySelectorAll('input[required]');
   const dropdown = document.getElementById('state');
-
   function checkForm() {
     let formIsValid = true;
     requiredFields.forEach(field => {
