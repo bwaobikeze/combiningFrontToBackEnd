@@ -98,7 +98,7 @@ class fuelQuoteModule {
             userQuote.getPrice() * (LocationFactOutOfState - 0.01 + 0.02 + 0.1);
         } else {
           ProfitMargin =
-            userQuote.getPrice() * (LocationFactOutOfState - 0.01 + 0.02 + 0.1);
+            userQuote.getPrice() * (LocationFactOutOfState - 0.01 + 0.03 + 0.1);
         }
       } else {
         if (userQuote.gallon.valueOf() > 1000) {
@@ -106,7 +106,7 @@ class fuelQuoteModule {
             userQuote.getPrice() * (LocationFactOutOfState + 0.02 + 0.1);
         } else {
           ProfitMargin =
-            userQuote.getPrice() * (LocationFactOutOfState + 0.02 + 0.1);
+            userQuote.getPrice() * (LocationFactOutOfState + 0.03 + 0.1);
         }
       }
     }

@@ -96,7 +96,12 @@
   <input type="text" name="add1"value="<%= locals.add1%>" id="userinfo" maxlength="100" disabled required>
   <br><br>
   <strong><label for="deliverydate"<b>Delivery Date: <font color="red">Required</font></b></label></strong><br>
-  <input type="date" name="date" value="<%= locals.date%>"required>
+  <input id="Date" type="date" name="date" value="<%= locals.date%>"required>
+  <% if (locals.error) { %>
+    <script>
+      alert("<%= locals.error %>");
+    </script>
+  <% } %>
   <br><br>
   <strong><label for="suggestprice"<b>Suggested Price: <font color="red"></font></b></label></strong><br>
   <input type="number" name="suggestprice" value="<%=locals.suggestprice%>" id="userinfo" maxlength="100" disabled>

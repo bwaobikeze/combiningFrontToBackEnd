@@ -199,21 +199,30 @@ app.post("/Partialquoteform", async (req, res) => {
   let cityChossin = req.body.state;
   let userAdress = foundUser.address1;
   let newActioin = new fuelQuoteModule();
-  let testQuote = newActioin.UCLocationOC(
-    cityChossin,
-    gallonVal,
-    getDate,
-    userAdress
-  );
-  newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
-  res.render("quoteform", {
-    gallons: testQuote.gallon,
-    state: req.body.state,
-    add1: testQuote.UsersDelveryAddress,
-    date: req.body.date,
-    totaldue: testQuote.totalQuote,
-    suggestprice: testQuote.sugestedPrice,
-  });
+  let today = new Date();
+  if (getDate < today) {
+    res.render("quoteform", {
+      error: "Delivery date cannot be in the past.",
+      add1: foundUser.address1,
+      state: foundUser.states,
+    });
+  } else {
+    let testQuote = newActioin.UCLocationOC(
+      cityChossin,
+      gallonVal,
+      getDate,
+      userAdress
+    );
+    newActioin.UCPricingTotal(testQuote, foundUser.QuoteHist);
+    res.render("quoteform", {
+      gallons: testQuote.gallon,
+      state: req.body.state,
+      add1: testQuote.UsersDelveryAddress,
+      date: req.body.date,
+      totaldue: testQuote.totalQuote,
+      suggestprice: testQuote.sugestedPrice,
+    });
+  }
 });
 /********************************************************
 performing A POST request to the Quote form page route:
@@ -233,27 +242,35 @@ app.post("/quoteform", async (req, res) => {
   let cityChossin = req.body.state;
   let userAdress = foundUser.address1;
   let newActioin = new fuelQuoteModule();
-
-  let testQuote = newActioin.UCLocationOC(
-    cityChossin,
-    gallonVal,
-    getDate,
-    userAdress
-  );
-  newActioin.UCPricingTotal(testQuote, req.session.userID);
-  let newQuote = {
-    userId: req.session.userID,
-    gallonreq: gallonVal,
-    deliveryaddress: userAdress,
-    deliverydate: getDate,
-    suggestedpricepergallon: testQuote.sugestedPrice,
-    totalamountdue: testQuote.totalQuote,
-  };
-  await fuelquote.createQuote(newQuote);
-  res.render("quoteform", {
-    add1: foundUser.address1,
-    state: foundUser.states,
-  });
+  let today = new Date();
+  if (getDate < today) {
+    res.render("quoteform", {
+      error: "Delivery date cannot be in the past.",
+      add1: foundUser.address1,
+      state: foundUser.states,
+    });
+  } else {
+    let testQuote = newActioin.UCLocationOC(
+      cityChossin,
+      gallonVal,
+      getDate,
+      userAdress
+    );
+    newActioin.UCPricingTotal(testQuote, req.session.userID);
+    let newQuote = {
+      userId: req.session.userID,
+      gallonreq: gallonVal,
+      deliveryaddress: userAdress,
+      deliverydate: getDate,
+      suggestedpricepergallon: testQuote.sugestedPrice,
+      totalamountdue: testQuote.totalQuote,
+    };
+    await fuelquote.createQuote(newQuote);
+    res.render("quoteform", {
+      add1: foundUser.address1,
+      state: foundUser.states,
+    });
+  }
 });
 /********************************************************
 performing A POST request to the Profile management page route:

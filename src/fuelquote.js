@@ -14,11 +14,11 @@ const schema = new mongoose.Schema({
   deliveryaddress: {
     type: String,
     maxLength: 100,
-    required: false,
+    required: true,
   },
   deliverydate: {
     type: String,
-    required: false,
+    required: true,
   },
   suggestedpricepergallon: {
     type: Number,
